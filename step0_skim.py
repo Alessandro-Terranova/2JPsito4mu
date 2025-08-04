@@ -4,6 +4,11 @@
 import os
 import ROOT
 
+ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
+
+# Definisco dizionari con i nomi dei file di input per le diverse ere
+# Questi file contengono i nomi dei file NanoAOD da processare per ogni era
+# I file sono organizzati in due categorie: Run1 e Run2
 files_idx = {
     "Run1":
         ["data/Run2012B_MuOnia_NanoAODRun1.txt",
@@ -13,11 +18,17 @@ files_idx = {
         "data/CMS_Run2016H_Charmonium_NANOAOD_UL2016_MiniAODv2_NanoAODv9-v1.txt"]
 }
 
+path = os.path.dirname(__file__)
+
+# Funzione per leggere i file di input e restituire un dizionario con le liste dei file per ogni era
 def read_files_idx(files_idx):
+    #creo un dizionario vuoto con le chiavi delle ere
     file_dict = {k : [] for k in files_idx.keys()}
     for era, era_list in files_idx.items():
+        #per ogni era, leggo i file di testo che contengono i nomi dei file NanoAOD
         for txt in era_list:
-            with open(os.path.join(os.path.dirname(__file__),txt), 'r') as f:
+            #apro il file e leggo le righe, aggiungendo i nomi dei file al dizionario
+            with open(os.path.join(path,txt), 'r') as f:
                 file_dict[era] += [line.strip() for line in f if line.strip()]
     return file_dict
 
@@ -37,13 +48,16 @@ def skim(files_dict, save_path = "data/{eras}.root"):
             for col in collections:
                 if branch.startswith(f"{col}_") or branch==f"n{col}":
                     column_to_save.append(branch)
-                if branch.startswith("Dimu_"):
+            if branch.startswith("Dimu_"):
                     dimu_cols.append(branch)
         for dimu_col in dimu_cols:
             if dimu_col != "Dimu_charge":
                 df = df.Redefine(dimu_col, f"{dimu_col}[Dimu_charge==0]")
         df = df.Redefine(dimu_col, f"Dimu_charge[Dimu_charge==0]")
-        df = df.Redefine("nDimu", "Dimu_charge.size()")
+        df = df.Redefine("nDimu", "Dimu_charge.size()").Filter("nDimu>=2")
+
+
+        print(f"Sto salvando: {column_to_save}")
         df.Snapshot("Events", save_path.format(eras=era), column_to_save)
 
 files_dict = read_files_idx(files_idx)
