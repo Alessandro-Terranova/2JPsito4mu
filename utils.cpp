@@ -3,7 +3,12 @@
 #include "TMath.h"
 #include "ROOT/RVec.hxx"
 
-
+// Definisco la funzione dRpTmatch che verifica se due oggetti sono matched in dR e pT
+// I due oggetti sono rappresentati da due vettori di eta, phi e pt
+// La funzione restituisce un vettore di booleani che indica se ogni oggetto del primo vettore ha un match nel secondo vettore
+// I parametri di matching sono dRmax e dPtMax
+// La funzione utilizza la funzione DeltaR di ROOT per calcolare la distanza in eta-phi
+// La funzione utilizza la funzione fabs di ROOT per calcolare la differenza in pT
 ROOT::VecOps::RVec<bool> dRpTMatch(const ROOT::VecOps::RVec<float> &eta1,
                                    const ROOT::VecOps::RVec<float> &phi1,
                                    const ROOT::VecOps::RVec<float> &pt1,
@@ -22,6 +27,9 @@ ROOT::VecOps::RVec<bool> dRpTMatch(const ROOT::VecOps::RVec<float> &eta1,
   return matches;
 };
 
+// Funzione che verifica se un muone è in accettanza tight
+// La funzione prende in input il vettore dei muoni trigger matched, il vettore dei pt e il vettore degli eta
+// Restituisce un vettore di booleani che indica se ogni muone è in accettanza tight
 ROOT::VecOps::RVec<bool>
 tightMuAcceptance(const ROOT::VecOps::RVec<bool> &isTrigMatched,
                   const ROOT::VecOps::RVec<float> &pt,
@@ -34,7 +42,7 @@ tightMuAcceptance(const ROOT::VecOps::RVec<bool> &isTrigMatched,
 
     if ((fabs(eta[i]) < 1.2 && pt[i] > 3.5) ||
         (fabs(eta[i]) > 1.2 && eta[i] < 1.6 &&
-         pt[i] > -15. * fabs(eta[i]) / 4 + 8) ||
+         pt[i] > -15 * fabs(eta[i]) / 4 + 8) || // retta che passa per i punti (1.2,3.5) e (1.6,2.5)
         (fabs(eta[i]) > 1.6 && fabs(eta[i]) < 2.4 && pt[i] > 3.5)) {
       acceptances[i] = true;
     }
@@ -42,6 +50,7 @@ tightMuAcceptance(const ROOT::VecOps::RVec<bool> &isTrigMatched,
   return acceptances;
 }
 
+// Funzione che verifica se un muone è in accettanza loose, analogamente alla tight
 ROOT::VecOps::RVec<bool>
 looseMuAcceptance(const ROOT::VecOps::RVec<float> &pt,
                   const ROOT::VecOps::RVec<float> &eta) {
@@ -49,13 +58,16 @@ looseMuAcceptance(const ROOT::VecOps::RVec<float> &pt,
   for (size_t i = 0; i < pt.size(); ++i) {
     if (fabs(eta[i]) < 1.2 && pt[i] > 3 ||
         fabs(eta[i]) >= 1.2 && fabs(eta[i]) < 2.4 &&
-            sqrt(pt[i] * pt[i] + pt[i] * sinh(fabs(eta[i]))) > 3) {
+            sqrt(pt[i] * pt[i] + pt[i] * sinh(fabs(eta[i]))) > 3) { 
       acceptances[i] = true;
     }
   }
   return acceptances;
 }
 
+// Funzione che verifica se l'evento ha almeno 4 muoni in accettanza
+// Almeno 3 in accettanza tight e almeno 1 in accettanza loose
+// La funzione prende in input il vettore dei booleani che indicano se un muone è in accettanza tight o loose
 bool MuonsAcceptance(const ROOT::VecOps::RVec<bool> &isInTightAccept,
                      const ROOT::VecOps::RVec<bool> &isInLooseAccept) {
   
@@ -91,7 +103,7 @@ JpsiAcceptance(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<flo
   for (size_t i = 0; i < pt.size(); ++i) {
     if ((fabs(y[i]) < 1.2 &&  pt[i] > 6.5) ||
         (fabs(y[i]) >= 1.2 && fabs(y[i]) < 1.43 &&
-         pt[i] > -200 * fabs(y[i])/23  + 779/46) ||
+         pt[i] > -200 * fabs(y[i])/23  + 779/46) || // retta che passa per i punti (1.2,6.5) e (1.43,4.5)
         (fabs(y[i]) >= 1.43 && fabs(y[i]) < 2.2 && pt[i] > 4.5)) {
       acceptances[i] = true;
     }
@@ -119,10 +131,7 @@ ROOT::VecOps::RVec<int> JpsiCandidates(ROOT::VecOps::RVec<float> Vtxprob, ROOT::
         return CandidateIndexs; // Esco dalla funzione restituendo gli indici dei candidati
       }
     }
-  }
-
-
-  
+  }  
   return CandidateIndexs;
 }
 

@@ -1,7 +1,7 @@
 import os
 import ROOT
 
-# ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
+ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
 
 # Creo il percorso per la cartella contente i file
 path = os.path.dirname(__file__)
@@ -152,16 +152,67 @@ if __name__ == "__main__":
     ).Filter("nDimu >= 2")
 
     rdf = rdf.Define("Dimu_CandidateIdx", "JpsiCandidates(Dimu_vertexProb, Dimu_t1muIdx, Dimu_t2muIdx)")  # Indici dei dimuon candidati J/psi
+
     #Sommo i candidati J/psi + 1 così i non candidati sono 0, e i candidati sono 1 o 2
     rdf = rdf.Filter("Sum(Dimu_CandidateIdx + 1) == 3")  # Filtro gli eventi con esattamente due candidati J/psi
 
     rdf = FilterCollection(rdf, "Dimu", new_col="Jpsi", mask = "Dimu_CandidateIdx != -1")  # Creo collezione dei dimuon candidati J/psi
-    
+
     rdf = FilterCollection(rdf, "Jpsi", indices = "ROOT::VecOps::Argsort(Jpsi_CandidateIdx)")  # Ordino i dimuon J/psi in base agli indici dei candidati
+
     rdf = rdf.Filter("""
                      Jpsi_dl[0] > -0.05 && Jpsi_dl[0] < 0.1
                      """)
  
- 
-    rdf.Display(["Jpsi_mass", "Jpsi_CandidateIdx", "Jpsi_t1muIdx", "Jpsi_t2muIdx", "Jpsi_vertexProb" ]).Print()  # Stampo le variabili del DataFrame
+    rdf = rdf.Define("DistanceBetweenJpsi", """sqrt( (Jpsi_z[0] - Jpsi_z[1])*(Jpsi_z[0] - Jpsi_z[1]) + 
+                                                (Jpsi_y[0] - Jpsi_y[1])*(Jpsi_y[0] - Jpsi_y[1]) + 
+                                                (Jpsi_x[0] - Jpsi_x[1])*(Jpsi_x[0] - Jpsi_x[1]) )
+                     """)  # Definisco la distanza tra i due vertici dei J/psi
 
+
+    # rdf.Display(["Jpsi_mass", "Jpsi_CandidateIdx", "Jpsi_t1muIdx", "Jpsi_t2muIdx", "Jpsi_vertexProb" ]).Print()  # Stampo le variabili del DataFrame
+
+    hist = rdf.Histo1D(("DistanceBetweenJpsi", "DistanceBetweenJpsi", 100, 0, 1), "DistanceBetweenJpsi")  # Creo l'istogramma della distanza tra i due vertici dei J/psi
+    c0 = ROOT.TCanvas("c0", "c0", 800, 600)
+    hist.Draw()
+    c0.SaveAs(os.path.join(path, "DistanceBetweenJpsi.png"))
+
+    rdf = rdf.Filter("DistanceBetweenJpsi < 0.1")  # Filtro gli eventi con distanza tra i due vertici dei J/psi minore di 0.1 cm
+
+    print(f"Numero di eventi dopo tutti i filtri: {rdf.Count().GetValue()}")  # Stampo il numero di eventi rimanenti dopo tutti i filtri
+
+    #---------------------------#
+    # Plot: creo gli istogrammi delle variabili di interesse
+    # Jpsi_mass[0]
+    rdf = rdf.Define("Jpsi0_mass", "Jpsi_mass[0]")
+    hist1 = rdf.Histo1D(("Jpsi_mass_1", "Jpsi_mass_1", 100, 2.8, 3.35), "Jpsi0_mass")  # Creo l'istogramma della massa del primo J/psi
+    c1 = ROOT.TCanvas("c1", "c1", 800, 600)
+    hist1.Draw()
+    c1.SaveAs(os.path.join(path, "Jpsi_mass_1.png"))
+
+    # Jpsi_mass[1]
+    rdf = rdf.Define("Jpsi1_mass", "Jpsi_mass[1]")
+    hist2 = rdf.Histo1D(("Jpsi_mass_2", "Jpsi_mass_2", 100, 2.8, 3.35), "Jpsi1_mass")  # Creo l'istogramma della massa del secondo J/psi
+    c2 = ROOT.TCanvas("c2", "c2", 800, 600)
+    hist2.Draw()
+    c2.SaveAs(os.path.join(path, "Jpsi_mass_2.png"))
+
+    # Jpsi_mass[0] vs Jpsi_mass[1]
+    hist3 = rdf.Histo2D(("Jpsi_mass_1_vs_Jpsi_mass_2", "Jpsi_mass_1_vs_Jpsi_mass_2; Jpsi0_mass; Jpsi1_mass", 100, 2.8, 3.35, 100, 2.8, 3.35), "Jpsi0_mass", "Jpsi1_mass")  # Creo l'istogramma 2D della massa del primo J/psi vs la massa del secondo J/psi
+    c3 = ROOT.TCanvas("c3", "c3", 800, 600)
+    hist3.Draw("COLZ")
+    c3.SaveAs(os.path.join(path, "Jpsi_mass_1_vs_Jpsi_mass_2.png"))
+
+    # Jpsi_dl
+    hist4 = rdf.Histo1D(("Jpsi_dl", "Jpsi_dl", 100, -0.05, 0.1), "Jpsi_dl")  # Creo l'istogramma della distanza di volo del primo J/psi
+    c4 = ROOT.TCanvas("c4", "c4", 800, 600)
+    hist4.Draw()
+    c4.SaveAs(os.path.join(path, "Jpsi_dl.png"))
+
+    # Jpsi_pt vs Jpsi_rapidity
+    hist5 = rdf.Histo2D(("Jpsi_pt_vs_Jpsi_rapidity", "Jpsi_pt_vs_Jpsi_rapidity; Jpsi_rapidity; Jpsi_pt", 100, -2.4, 2.4, 100, 0, 30), "Jpsi_rapidity", "Jpsi_pt")  # Creo l'istogramma 2D della rapidità del primo J/psi vs il pt del primo J/psi
+    c5 = ROOT.TCanvas("c5", "c5", 800, 600)
+    hist5.Draw("COLZ")
+    c5.SaveAs(os.path.join(path, "Jpsi_pt_vs_Jpsi_rapidity.png"))
+
+    # hist = rdf.Histo1D(("DistanceBetweenJpsi", "DistanceBetweenJpsi", 100, 0, 1), "DistanceBetweenJpsi")  # Creo l'istogramma della distanza tra i due vertici dei J/psi
