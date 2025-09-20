@@ -7,7 +7,6 @@ ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
 path = os.path.dirname(__file__)
 
 
-
 def FilterCollection(rdf, collection, new_col=None, mask=None, indices=None):
     """Funzione che filtra una collezione (colonna specifica) in un RDataFrame.
         Si può filtrare usando una maschera booleana (mask) o usando degli indici (indices).
@@ -16,7 +15,7 @@ def FilterCollection(rdf, collection, new_col=None, mask=None, indices=None):
         Non si possono specificare entrambe le opzioni mask e indices. 
     """
 
-    exclude = ["Muon_nNano"]  # Escludo questa variabile dal filtro
+    exclude = ["Muon_nNano"]  # Escludo questa variabile dal filtro che ha lunghezza diversa dalle altre ed è inutile al c
 
     # Controllo che almeno uno tra mask e indices sia None, ma non entrambi, sennò solleva un errore
     if mask is None:
@@ -107,19 +106,19 @@ if __name__ == "__main__":
 
     rdf = FilterCollection(rdf, "TrigObj", new_col="TrigMu", mask="abs(TrigObj_id) == 13") # filtro i TrigObj
 
-    # Definisco le variabili che indicano se i muoni sono triggermatched
+    # Definisco i filtri che indicano se i muoni sono triggermatched
     rdf = rdf.Define(
         "Muon_isTrigMatched",
         "dRpTMatch(Muon_eta, Muon_phi, Muon_pt, TrigMu_eta, TrigMu_phi, TrigMu_pt)",
     ) 
 
-    # Definisco le variabili che indicano se i muoni sono in accettanza tight o loose
+    # Definisco i filtri che indicano se i muoni sono in accettanza tight o loose
     rdf = rdf.Define(
         "Muon_isInTightAccept", "tightMuAcceptance(Muon_isTrigMatched, Muon_pt, Muon_eta)"
     )
     rdf = rdf.Define("Muon_isInLooseAccept", "looseMuAcceptance(Muon_pt, Muon_eta)")
 
-    # Filtro gli eventi che hanno almeno due muoni in accettanza tight o loose
+    # Filtro gli eventi che hanno almeno 4 muoni in accettanza tight o loose
     rdf = rdf.Define(
         "AreMuInAccept", "MuonsAcceptance(Muon_isInTightAccept, Muon_isInLooseAccept)"
     ).Filter("AreMuInAccept")
@@ -172,7 +171,9 @@ if __name__ == "__main__":
 
     # rdf.Display(["Jpsi_mass", "Jpsi_CandidateIdx", "Jpsi_t1muIdx", "Jpsi_t2muIdx", "Jpsi_vertexProb" ]).Print()  # Stampo le variabili del DataFrame
 
-    hist = rdf.Histo1D(("DistanceBetweenJpsi", "DistanceBetweenJpsi", 100, 0, 1), "DistanceBetweenJpsi")  # Creo l'istogramma della distanza tra i due vertici dei J/psi
+    hist = rdf.Histo1D(("DistanceBetweenJpsi", "Distanza tra i candidati J/#psi", 100, 0, 1), "DistanceBetweenJpsi")  # Creo l'istogramma della distanza tra i due vertici dei J/psi
+    hist.GetXaxis().SetTitle("#Delta r [cm]")
+    hist.GetYaxis().SetTitle("Numero di eventi candidati")
     c0 = ROOT.TCanvas("c0", "c0", 800, 600)
     hist.Draw()
     c0.SaveAs(os.path.join(path, "DistanceBetweenJpsi.png"))
@@ -182,6 +183,7 @@ if __name__ == "__main__":
     print(f"Numero di eventi dopo tutti i filtri: {rdf.Count().GetValue()}")  # Stampo il numero di eventi rimanenti dopo tutti i filtri
 
     #---------------------------#
+    '''
     # Plot: creo gli istogrammi delle variabili di interesse
     # Jpsi_mass[0]
     rdf = rdf.Define("Jpsi0_mass", "Jpsi_mass[0]")
@@ -214,5 +216,6 @@ if __name__ == "__main__":
     c5 = ROOT.TCanvas("c5", "c5", 800, 600)
     hist5.Draw("COLZ")
     c5.SaveAs(os.path.join(path, "Jpsi_pt_vs_Jpsi_rapidity.png"))
+    '''
 
-    # hist = rdf.Histo1D(("DistanceBetweenJpsi", "DistanceBetweenJpsi", 100, 0, 1), "DistanceBetweenJpsi")  # Creo l'istogramma della distanza tra i due vertici dei J/psi
+   

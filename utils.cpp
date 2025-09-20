@@ -85,6 +85,8 @@ bool MuonsAcceptance(const ROOT::VecOps::RVec<bool> &isInTightAccept,
 auto getProb = [](float chi2){return TMath::Prob(chi2,1);};
 
 // Funzione per la rapidità della J/psi
+// La funzione prende in input il vettore dei pt e il vettore degli eta
+// Restituisce un vettore di float con le rapidità calcolate
 ROOT::VecOps::RVec<float>
 rapidity(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<float> &eta) {
   ROOT::VecOps::RVec<float> y(pt.size());
@@ -96,7 +98,9 @@ rapidity(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<float> &e
   return y;
 }
 
-// Funzone per l'accettanza della J/psi
+// Funzione per l'accettanza della J/psi
+// La funzione prende in input il vettore dei pt e il vettore delle rapidità
+// Restituisce un vettore di booleani che indica se ogni J/psi è in accettanza
 ROOT::VecOps::RVec<bool>
 JpsiAcceptance(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<float> &y) {
   ROOT::VecOps::RVec<bool> acceptances(pt.size(), false);
