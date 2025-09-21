@@ -1,3 +1,7 @@
+"""
+Script per filtrare gli eventi con due candidati J/psi che decadono in 4 muoni, secondo i criteri di selezioni richiesti.
+I file di input sono file ROOT in formato NanoAOD, precedentemente skimmati.
+"""
 import os
 import ROOT
 
@@ -8,14 +12,23 @@ path = os.path.dirname(__file__)
 
 
 def FilterCollection(rdf, collection, new_col=None, mask=None, indices=None):
-    """Funzione che filtra una collezione (colonna specifica) in un RDataFrame.
-        Si può filtrare usando una maschera booleana (mask) o usando degli indici (indices).
-        Se si specifica new_col, la collezione filtrata viene salvata con un nuovo nome.
-        Se non si specifica new_col, la collezione originale viene sovrascritta.
-        Non si possono specificare entrambe le opzioni mask e indices. 
     """
 
-    exclude = ["Muon_nNano"]  # Escludo questa variabile dal filtro che ha lunghezza diversa dalle altre ed è inutile al c
+        Filtra una collezione di oggetti in un RDataFrame basato su una maschera booleana o su indici specifici.
+        Può creare una nuova collezione o sovrascrivere quella esistente.
+
+        Args:
+            rdf (ROOT.RDataFrame): Il DataFrame da cui filtrare la collezione
+            collection (str): Il prefisso delle colonne della collezione da filtrare (es. "Muon" per le colonne Muon_pt, Muon_eta, ecc.)
+            new_col (str, optional): Il prefisso delle colonne della nuova collezione filtrata. Defaults to None.
+            mask (str, optional): Espressione booleana per filtrare la collezione. Defaults to None.
+            indices (str, optional): Espressione che restituisce gli indici per filtrare la collezione. Defaults to None.
+        Returns:
+            ROOT.RDataFrame: Il DataFrame con la collezione filtrata
+
+    """
+
+    exclude = ["Muon_nNano"]  # Escludo questa variabile dal filtro che ha lunghezza diversa dalle altre
 
     # Controllo che almeno uno tra mask e indices sia None, ma non entrambi, sennò solleva un errore
     if mask is None:
@@ -206,7 +219,7 @@ if __name__ == "__main__":
 
     print(f"Numero di eventi dopo tutti i filtri: {rdf.Count().GetValue()}")  # Stampo il numero di eventi rimanenti dopo tutti i filtri
 
-    #---------------------------#
+#-----------------------------------------------------------#
 
     # Plot: creo gli istogrammi delle variabili di interesse
     # Jpsi_mass[0]
@@ -256,5 +269,3 @@ if __name__ == "__main__":
     c5 = ROOT.TCanvas("c5", "c5", 800, 600)
     hist5.Draw("COLZ")
     c5.SaveAs(os.path.join(path, "Jpsi_pt_vs_Jpsi_rapidity.png"))
-
-   

@@ -1,3 +1,10 @@
+"""
+
+Script per eseguire lo skim dei file di input e salvare i risultati in file di output
+I file di input sono specificati in file di testo, organizzati per ere
+I file di output sono salvati in un percorso specificato, con un nome che include l'era
+
+"""
 import os
 import ROOT
 
@@ -18,7 +25,17 @@ files_idx = {
 path = os.path.dirname(__file__)
 
 def read_files_idx(files_idx):
-    """ Funzione che legge i file di input e restituisce un dizionario con le liste dei file per ogni era"""
+    """
+
+    Funzione che legge i file di testo contenenti i nomi dei file di input
+    e li organizza in un dizionario con le chiavi delle ere
+    
+    Args:
+        files_idx (dict): Dizionario con le chiavi delle ere e i nomi dei file di testo
+    Returns: 
+        dict: Dizionario con le chiavi delle ere e i nomi dei file di input
+
+    """
 
     #creo un dizionario vuoto con le chiavi delle ere
     file_dict = {k : [] for k in files_idx.keys()}
@@ -34,11 +51,23 @@ def read_files_idx(files_idx):
 
 
 def skim(files_dict, save_path = "data/{eras}.root"):
-    """ Funzione che effettua lo skim dei file di input"""
+    """
+
+    Funzione che esegue lo skim dei file di input e salva i risultati in file di output
+
+        Args:
+            files_dict (dict): Dizionario con le chiavi delle ere e i nomi dei file di input
+            save_path (str): Percorso dove salvare i file di output, con un placeholder per l'era
+        
+        Returns:
+            None
+
+    """
 
     # Definisco le collezioni da usare
     collections = ["Muon", "Dimu", "TrigObj"]
 
+    # Ciclo su ogni era e i relativi file di input
     for era, files_era in files_dict.items():
         print("Processing era:", era)
         df = ROOT.RDataFrame("Events", files_era)
@@ -56,9 +85,9 @@ def skim(files_dict, save_path = "data/{eras}.root"):
         # Seleziono le colonne da salvare, includendo tutte le colonne delle collezioni di interesse
         for branch in list_of_columns:
             for col in collections:
-                if branch.startswith(f"{col}_") or branch==f"n{col}":
+                if branch.startswith(f"{col}_") or branch==f"n{col}": # salvo tutte le colonne delle collezioni di interesse
                     column_to_save.append(branch)
-            if branch.startswith("Dimu_"):
+            if branch.startswith("Dimu_"): # salvo tutte le colonne di Dimu per la ridefinizione
                     dimu_cols.append(branch)
         # Ridefinisco le colonne di Dimu per mantenere solo quelle con carica 0 (dimuoni neutri)
         for dimu_col in dimu_cols:
