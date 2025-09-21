@@ -5,7 +5,9 @@ I file di input sono file ROOT in formato NanoAOD, precedentemente skimmati.
 import os
 import ROOT
 
-# ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
+ROOT.gInterpreter.Declare('#include "utils.cpp"') # Importo le funzioni definite in utils.cpp
+
+ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
 
 # Creo il percorso per la cartella contente i file
 path = os.path.dirname(__file__)
@@ -106,8 +108,6 @@ if __name__ == "__main__":
     # Verifico che il file di input esista
     if not os.path.isfile(input_file):
         raise FileNotFoundError(f"Il file specificato non esiste: {input_file}")
-
-    ROOT.gInterpreter.Declare('#include "utils.cpp"') # Importo le funzioni definite in utils.cpp
     
     #-------------------------------------------#
 
