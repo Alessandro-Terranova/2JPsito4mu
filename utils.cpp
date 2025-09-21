@@ -1,14 +1,27 @@
+/*
+Script contente delle funzioni utili per l'analisi
+*/
+
 #ifndef UTILS_CPP
 #define UTILS_CPP
 #include "TMath.h"
 #include "ROOT/RVec.hxx"
 
-// Definisco la funzione dRpTmatch che verifica se due oggetti sono matched in dR e pT
-// I due oggetti sono rappresentati da due vettori di eta, phi e pt
-// La funzione restituisce un vettore di booleani che indica se ogni oggetto del primo vettore ha un match nel secondo vettore
-// I parametri di matching sono dRmax e dPtMax
-// La funzione utilizza la funzione DeltaR di ROOT per calcolare la distanza in eta-phi
-// La funzione utilizza la funzione fabs di ROOT per calcolare la differenza in pT
+//-------------------------------------------------------------------------------------//
+
+/*
+
+Funzione che verifica se ogni oggetto in un vettore ha un match in un altro vettore in dR e dpT
+
+Args:
+    eta1, phi1, pt1: vettori di float rappresentanti il primo oggetto
+    eta2, phi2, pt2: vettori di float rappresentanti il secondo oggetto
+    dRmax: float, distanza massima in eta-phi per considerare un match (default 0.1)
+    dPtMax: float, differenza massima in pT per considerare un match (default 10)
+Returns:
+    vettore di booleani che indica se ogni oggetto del primo vettore ha un match nel secondo vettore
+
+*/
 ROOT::VecOps::RVec<bool> dRpTMatch(const ROOT::VecOps::RVec<float> &eta1,
                                    const ROOT::VecOps::RVec<float> &phi1,
                                    const ROOT::VecOps::RVec<float> &pt1,
@@ -27,9 +40,21 @@ ROOT::VecOps::RVec<bool> dRpTMatch(const ROOT::VecOps::RVec<float> &eta1,
   return matches;
 };
 
-// Funzione che verifica se un muone è in accettanza tight
-// La funzione prende in input il vettore dei muoni trigger matched, il vettore dei pt e il vettore degli eta
-// Restituisce un vettore di booleani che indica se ogni muone è in accettanza tight
+
+//-------------------------------------------------------------------------------------//
+
+/*
+
+Funzione che verifica se un muone è in accettanza tight
+
+Args:
+    isTrigMatched: vettore di booleani che indica se il muone è trigger matched
+    pt: vettore di float rappresentante il pT dei muoni
+    eta: vettore di float rappresentante l'eta dei muoni
+Returns:
+    vettore di booleani che indica se ogni muone è in accettanza tight
+
+*/
 ROOT::VecOps::RVec<bool>
 tightMuAcceptance(const ROOT::VecOps::RVec<bool> &isTrigMatched,
                   const ROOT::VecOps::RVec<float> &pt,
@@ -50,7 +75,13 @@ tightMuAcceptance(const ROOT::VecOps::RVec<bool> &isTrigMatched,
   return acceptances;
 }
 
-// Funzione che verifica se un muone è in accettanza loose, analogamente alla tight
+//-------------------------------------------------------------------------------------//
+
+/*
+
+Funzione che verifica se un muone è in accettanza loose, analoga alla tight
+
+*/
 ROOT::VecOps::RVec<bool>
 looseMuAcceptance(const ROOT::VecOps::RVec<float> &pt,
                   const ROOT::VecOps::RVec<float> &eta) {
@@ -65,9 +96,21 @@ looseMuAcceptance(const ROOT::VecOps::RVec<float> &pt,
   return acceptances;
 }
 
-// Funzione che verifica se l'evento ha almeno 4 muoni in accettanza
-// Almeno 3 in accettanza tight e almeno 1 in accettanza loose
-// La funzione prende in input il vettore dei booleani che indicano se un muone è in accettanza tight o loose
+//-------------------------------------------------------------------------------------//
+
+/*
+
+Funzione che verifica se un evento con 4 muoni soddisfa i criteri di accettanza:
+- almeno 4 muoni in accettanza tight
+- almeno 1 muone in accettanza loose (ma non tight)
+
+Args:
+    isInTightAccept: vettore di booleani che indica se ogni muone è in accettanza tight
+    isInLooseAccept: vettore di booleani che indica se ogni muone è in accettanza loose
+Returns:
+    booleano che indica se l'evento soddisfa i criteri di accettanza
+
+*/
 bool MuonsAcceptance(const ROOT::VecOps::RVec<bool> &isInTightAccept,
                      const ROOT::VecOps::RVec<bool> &isInLooseAccept) {
   
@@ -81,12 +124,31 @@ bool MuonsAcceptance(const ROOT::VecOps::RVec<bool> &isInTightAccept,
       }
 }
 
-// Lambda function per calcolare la probabilità associata a un valore di chi2 con 1 grado di libertà
+//-------------------------------------------------------------------------------------//
+
+/* 
+
+Lambda function per calcolare la probabilità di vertex fit associata a un valore di chi2 con 1 grado di libertà
+
+Args:
+    chi2: float, valore di chi2
+Returns:
+    float, probabilità associata al valore di chi2
+
+*/
+
 auto getProb = [](float chi2){return TMath::Prob(chi2,1);};
 
-// Funzione per la rapidità della J/psi
-// La funzione prende in input il vettore dei pt e il vettore degli eta
-// Restituisce un vettore di float con le rapidità calcolate
+/*
+Funzione che calcola la rapidità di un oggetto a partire da pt ed eta
+
+Args:
+    pt: vettore di float rappresentante il pT delle J/psi
+    eta: vettore di float rappresentante l'eta delle J/psi
+Returns:
+    vettore di float che indica la rapidità delle J/psi
+
+*/
 ROOT::VecOps::RVec<float>
 rapidity(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<float> &eta) {
   ROOT::VecOps::RVec<float> y(pt.size());
@@ -98,12 +160,22 @@ rapidity(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<float> &e
   return y;
 }
 
-// Funzione per l'accettanza della J/psi
-// La funzione prende in input il vettore dei pt e il vettore delle rapidità
-// Restituisce un vettore di booleani che indica se ogni J/psi è in accettanza
+//-------------------------------------------------------------------------------------//
+
+/*
+
+Funzione che verifica se una J/psi è in accettanza
+
+Args:
+    pt: vettore di float rappresentante il pT delle J/psi
+    y: vettore di float rappresentante la rapidità delle J/psi
+Returns:
+    vettore di booleani che indica se ogni J/psi è in accettanza
+
+*/
 ROOT::VecOps::RVec<bool>
 JpsiAcceptance(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<float> &y) {
-  ROOT::VecOps::RVec<bool> acceptances(pt.size(), false);
+  ROOT::VecOps::RVec<bool> acceptances(pt.size(), false); // Inizializzo il vettore delle accettanze a false
   for (size_t i = 0; i < pt.size(); ++i) {
     if ((fabs(y[i]) < 1.2 &&  pt[i] > 6.5) ||
         (fabs(y[i]) >= 1.2 && fabs(y[i]) < 1.43 &&
@@ -115,9 +187,21 @@ JpsiAcceptance(const ROOT::VecOps::RVec<float> &pt, const ROOT::VecOps::RVec<flo
   return acceptances;
 }
 
-// Funzione che resituisce un Rvecinteger con gli indici degli elementi candidati a formare la coppia di J/psi
-// La funzione prende in input il vettore delle probabilità dei vertici, il vettore dei firstindex e il vettore dei secondindex
-// Restituisce un Rvecinteger con gli indici dei due dimuon candidati a formare la coppia di J/psi
+
+//-------------------------------------------------------------------------------------//
+
+/*
+
+Funzione che seleziona i due migliori candidati J/psi in un evento con 4 muoni in base alla probabilità del vertex fit
+
+Args:
+    Vtxprob: vettore di float rappresentante la probabilità del vertex fit dei dimuon
+    firstindex: vettore di interi rappresentante l'indice del primo muone del dimuon
+    secondindex: vettore di interi rappresentante l'indice del secondo muone del dimuon
+Returns:
+    vettore di interi che indica gli indici dei due candidati J/psi (0 e 1), -1 se non ci sono candidati
+
+*/
 ROOT::VecOps::RVec<int> JpsiCandidates(ROOT::VecOps::RVec<float> Vtxprob, ROOT::VecOps::RVec<int> firstindex, ROOT::VecOps::RVec<int> secondindex) {
   int nDimu = Vtxprob.size();
   ROOT::VecOps::RVec<int> CandidateIndexs(nDimu, -1); // Inizializzo il vettore degli indici dei candidati a -1
@@ -139,10 +223,20 @@ ROOT::VecOps::RVec<int> JpsiCandidates(ROOT::VecOps::RVec<float> Vtxprob, ROOT::
   return CandidateIndexs;
 }
 
+//-------------------------------------------------------------------------------------//
 
-// Funzione che resistuisce un Rvecintger con gli indici dei muoni ordinati per pt crescente
-// La funzione prende in input il vettore dei pt dei muoni e il vettore degli indici dei muoni
-// Restituisce un Rvecinteger con gli indici dei muoni ordinati per pt crescente
+
+/*
+
+Funzione che ordina i muoni in base al loro pT e restituisce gli indici ordinati
+
+Args:
+    muon_pt: vettore di float rappresentante il pT dei muoni
+    muon_index: vettore di interi rappresentante l'indice dei muoni
+Returns:
+    vettore di interi che indica gli indici dei muoni ordinati per pT
+
+*/
 ROOT::VecOps::RVec<int> MuonPtOrdering(const ROOT::VecOps::RVec<float> &muon_pt, const ROOT::VecOps::RVec<int> &muon_index) {
   int nMuons = muon_pt.size();
   ROOT::VecOps::RVec<int> MuonIndexSorted(nMuons, 0); // Inizializzo il vettore degli indici dei muoni ordinati a 0
