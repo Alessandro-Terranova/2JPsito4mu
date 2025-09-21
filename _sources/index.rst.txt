@@ -1,0 +1,21 @@
+.. DiJpsito4mu documentation master file, created by
+   sphinx-quickstart on Sun Sep 21 16:22:54 2025.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+DiJpsito4mu documentation
+=========================
+
+Documentazione dell'analisi di ricostruzione di eventi di decadimento di 2J/psi in 4 muoni.
+Sono usati gli open data della Run1 di CMS.
+L'analisi inizia con lo skimming dei dati, seguito da una selezione dei candidati all'evento di interesse.
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   skimming
+   filtering
+   Utilities
+

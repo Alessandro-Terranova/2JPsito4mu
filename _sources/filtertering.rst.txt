@@ -1,0 +1,7 @@
+Script di analisi dati
+===========
+
+.. automodule:: step1_filter
+    :module:
+    :members:
+    :show-inheritance:

@@ -1,0 +1,126 @@
+====================================
+Funzioni di Utilities
+====================================
+
+Funzioni ausiliarie scritte in C++ per l'analisi dati.
+
+
+------------------------
+Funzioni per i Trigger 
+------------------------
+
+.. cpp:function:: ROOT::VecOps::RVec<bool> dRpTMatch(const ROOT::VecOps::RVec<float> &eta1, \
+                                                     const ROOT::VecOps::RVec<float> &phi1, \
+                                                     const ROOT::VecOps::RVec<float> &pt1, \
+                                                     const ROOT::VecOps::RVec<float> &eta2, \
+                                                     const ROOT::VecOps::RVec<float> &phi2, \
+                                                     const ROOT::VecOps::RVec<float> &pt2, \
+                                                     float dRmax=0.1, float dPtMax=10)
+
+   Verifica se ogni oggetto in un vettore ha un match in un altro vettore in dR e dpT.
+
+   :param eta1: vettore di float con le coordinate eta del primo oggetto
+   :param phi1: vettore di float con le coordinate phi del primo oggetto
+   :param pt1: vettore di float con i valori pT del primo oggetto
+   :param eta2: vettore di float con le coordinate eta del secondo oggetto
+   :param phi2: vettore di float con le coordinate phi del secondo oggetto
+   :param pt2: vettore di float con i valori pT del secondo oggetto
+   :param dRmax: distanza massima in eta-phi per considerare un match (default 0.1)
+   :param dPtMax: differenza massima in pT per considerare un match (default 10)
+   :returns: vettore di booleani che indica se ogni oggetto del primo vettore ha un match
+
+
+--------------------------------------
+Funzioni per l'accettanza dei muoni
+--------------------------------------
+
+.. cpp:function:: ROOT::VecOps::RVec<bool> tightMuAcceptance(const ROOT::VecOps::RVec<bool> &isTrigMatched, \
+                                                             const ROOT::VecOps::RVec<float> &pt, \
+                                                             const ROOT::VecOps::RVec<float> &eta)
+
+   Verifica se un muone è in accettanza tight.
+
+   :param isTrigMatched: vettore di booleani che indica se il muone è trigger matched
+   :param pt: vettore di float rappresentante il pT dei muoni
+   :param eta: vettore di float rappresentante l'eta dei muoni
+   :returns: vettore di booleani che indica se ogni muone è in accettanza tight
+
+
+.. cpp:function:: ROOT::VecOps::RVec<bool> looseMuAcceptance(const ROOT::VecOps::RVec<float> &pt, \
+                                                             const ROOT::VecOps::RVec<float> &eta)
+
+   Verifica se un muone è in accettanza loose (analoga alla tight).
+
+   :param pt: vettore di float rappresentante il pT dei muoni
+   :param eta: vettore di float rappresentante l'eta dei muoni
+   :returns: vettore di booleani che indica se ogni muone è in accettanza loose
+
+
+.. cpp:function:: bool MuonsAcceptance(const ROOT::VecOps::RVec<bool> &isInTightAccept, \
+                                       const ROOT::VecOps::RVec<bool> &isInLooseAccept)
+
+   Verifica se un evento con 4 muoni soddisfa i criteri di accettanza:
+   - almeno 4 muoni in accettanza tight
+   - almeno 1 muone in accettanza loose (ma non tight)
+
+   :param isInTightAccept: vettore di booleani che indica se ogni muone è in accettanza tight
+   :param isInLooseAccept: vettore di booleani che indica se ogni muone è in accettanza loose
+   :returns: booleano che indica se l'evento soddisfa i criteri di accettanza
+
+
+.. cpp:function:: ROOT::VecOps::RVec<int> MuonPtOrdering(const ROOT::VecOps::RVec<float> &muon_pt, \
+                                                         const ROOT::VecOps::RVec<int> &muon_index)
+
+   Ordina i muoni in base al loro pT e restituisce gli indici ordinati.
+
+   :param muon_pt: vettore di float rappresentante il pT dei muoni
+   :param muon_index: vettore di interi rappresentante l'indice dei muoni
+   :returns: vettore di interi che indica gli indici dei muoni ordinati per pT
+
+
+-----------------------
+Funzioni ausiliarie
+-----------------------
+
+.. cpp:function:: auto getProb(float chi2)
+
+   Calcola la probabilità di vertex fit associata a un valore di chi2 con 1 grado di libertà.
+
+   :param chi2: valore di chi2
+   :returns: probabilità associata al valore di chi2
+
+
+.. cpp:function:: ROOT::VecOps::RVec<float> rapidity(const ROOT::VecOps::RVec<float> &pt, \
+                                                     const ROOT::VecOps::RVec<float> &eta)
+
+   Calcola la rapidità di un oggetto a partire da pt ed eta.
+
+   :param pt: vettore di float rappresentante il pT delle J/psi
+   :param eta: vettore di float rappresentante l'eta delle J/psi
+   :returns: vettore di float che indica la rapidità delle J/psi
+
+
+-------------------------------------------------------
+Funzioni per l'accettanza e ricostruzione delle J/psi
+-------------------------------------------------------
+
+.. cpp:function:: ROOT::VecOps::RVec<bool> JpsiAcceptance(const ROOT::VecOps::RVec<float> &pt, \
+                                                          const ROOT::VecOps::RVec<float> &y)
+
+   Verifica se una J/psi è in accettanza.
+
+   :param pt: vettore di float rappresentante il pT delle J/psi
+   :param y: vettore di float rappresentante la rapidità delle J/psi
+   :returns: vettore di booleani che indica se ogni J/psi è in accettanza
+
+
+.. cpp:function:: ROOT::VecOps::RVec<int> JpsiCandidates(ROOT::VecOps::RVec<float> Vtxprob, \
+                                                         ROOT::VecOps::RVec<int> firstindex, \
+                                                         ROOT::VecOps::RVec<int> secondindex)
+
+   Seleziona i due migliori candidati J/psi in un evento con 4 muoni in base alla probabilità del vertex fit.
+
+   :param Vtxprob: vettore di float rappresentante la probabilità del vertex fit dei dimuon
+   :param firstindex: vettore di interi rappresentante l'indice del primo muone del dimuon
+   :param secondindex: vettore di interi rappresentante l'indice del secondo muone del dimuon
+   :returns: vettore di interi che indica gli indici dei due candidati J/psi (0 e 1), -1 se non ci sono candidati

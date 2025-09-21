@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="it" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Funzioni di Utilities &#8212; Documentazione DiJpsito4mu  </title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=3fd72285"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=45930005"></script>
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="prev" title="Script di analisi dati" href="filtering.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="funzioni-di-utilities">
+<h1>Funzioni di Utilities<a class="headerlink" href="#funzioni-di-utilities" title="Link to this heading">¶</a></h1>
+<p>Funzioni ausiliarie scritte in C++ per l’analisi dati.</p>
+<section id="funzioni-per-i-trigger">
+<h2>Funzioni per i Trigger<a class="headerlink" href="#funzioni-per-i-trigger" title="Link to this heading">¶</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv49dRpTMatchRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEEff">
+<span id="_CPPv39dRpTMatchRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEEff"></span><span id="_CPPv29dRpTMatchRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEEff"></span><span id="dRpTMatch__ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR.float.float"></span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dRpTMatch</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eta1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">phi1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pt1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eta2</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">phi2</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pt2</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dRmax</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.1</span></span>, <span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dPtMax</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">10</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49dRpTMatchRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEEff" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Verifica se ogni oggetto in un vettore ha un match in un altro vettore in dR e dpT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>eta1</strong> – vettore di float con le coordinate eta del primo oggetto</p></li>
+<li><p><strong>phi1</strong> – vettore di float con le coordinate phi del primo oggetto</p></li>
+<li><p><strong>pt1</strong> – vettore di float con i valori pT del primo oggetto</p></li>
+<li><p><strong>eta2</strong> – vettore di float con le coordinate eta del secondo oggetto</p></li>
+<li><p><strong>phi2</strong> – vettore di float con le coordinate phi del secondo oggetto</p></li>
+<li><p><strong>pt2</strong> – vettore di float con i valori pT del secondo oggetto</p></li>
+<li><p><strong>dRmax</strong> – distanza massima in eta-phi per considerare un match (default 0.1)</p></li>
+<li><p><strong>dPtMax</strong> – differenza massima in pT per considerare un match (default 10)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>vettore di booleani che indica se ogni oggetto del primo vettore ha un match</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="funzioni-per-l-accettanza-dei-muoni">
+<h2>Funzioni per l’accettanza dei muoni<a class="headerlink" href="#funzioni-per-l-accettanza-dei-muoni" title="Link to this heading">¶</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417tightMuAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE">
+<span id="_CPPv317tightMuAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="_CPPv217tightMuAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="tightMuAcceptance__ROOT::VecOps::RVec:b:CR.ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR"></span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tightMuAcceptance</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">isTrigMatched</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eta</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417tightMuAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Verifica se un muone è in accettanza tight.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>isTrigMatched</strong> – vettore di booleani che indica se il muone è trigger matched</p></li>
+<li><p><strong>pt</strong> – vettore di float rappresentante il pT dei muoni</p></li>
+<li><p><strong>eta</strong> – vettore di float rappresentante l’eta dei muoni</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>vettore di booleani che indica se ogni muone è in accettanza tight</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417looseMuAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE">
+<span id="_CPPv317looseMuAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="_CPPv217looseMuAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="looseMuAcceptance__ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR"></span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">looseMuAcceptance</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eta</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417looseMuAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Verifica se un muone è in accettanza loose (analoga alla tight).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pt</strong> – vettore di float rappresentante il pT dei muoni</p></li>
+<li><p><strong>eta</strong> – vettore di float rappresentante l’eta dei muoni</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>vettore di booleani che indica se ogni muone è in accettanza loose</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415MuonsAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIbEE">
+<span id="_CPPv315MuonsAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIbEE"></span><span id="_CPPv215MuonsAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIbEE"></span><span id="MuonsAcceptance__ROOT::VecOps::RVec:b:CR.ROOT::VecOps::RVec:b:CR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MuonsAcceptance</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">isInTightAccept</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">isInLooseAccept</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415MuonsAcceptanceRKN4ROOT6VecOps4RVecIbEERKN4ROOT6VecOps4RVecIbEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Verifica se un evento con 4 muoni soddisfa i criteri di accettanza:
+- almeno 4 muoni in accettanza tight
+- almeno 1 muone in accettanza loose (ma non tight)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>isInTightAccept</strong> – vettore di booleani che indica se ogni muone è in accettanza tight</p></li>
+<li><p><strong>isInLooseAccept</strong> – vettore di booleani che indica se ogni muone è in accettanza loose</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>booleano che indica se l’evento soddisfa i criteri di accettanza</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414MuonPtOrderingRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIiEE">
+<span id="_CPPv314MuonPtOrderingRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIiEE"></span><span id="_CPPv214MuonPtOrderingRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIiEE"></span><span id="MuonPtOrdering__ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:i:CR"></span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MuonPtOrdering</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">muon_pt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">muon_index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414MuonPtOrderingRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIiEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Ordina i muoni in base al loro pT e restituisce gli indici ordinati.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>muon_pt</strong> – vettore di float rappresentante il pT dei muoni</p></li>
+<li><p><strong>muon_index</strong> – vettore di interi rappresentante l’indice dei muoni</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>vettore di interi che indica gli indici dei muoni ordinati per pT</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="funzioni-ausiliarie">
+<h2>Funzioni ausiliarie<a class="headerlink" href="#funzioni-ausiliarie" title="Link to this heading">¶</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv47getProbf">
+<span id="_CPPv37getProbf"></span><span id="_CPPv27getProbf"></span><span id="getProb__float"></span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getProb</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">chi2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47getProbf" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Calcola la probabilità di vertex fit associata a un valore di chi2 con 1 grado di libertà.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>chi2</strong> – valore di chi2</p>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>probabilità associata al valore di chi2</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv48rapidityRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE">
+<span id="_CPPv38rapidityRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="_CPPv28rapidityRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="rapidity__ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR"></span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rapidity</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">eta</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv48rapidityRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Calcola la rapidità di un oggetto a partire da pt ed eta.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pt</strong> – vettore di float rappresentante il pT delle J/psi</p></li>
+<li><p><strong>eta</strong> – vettore di float rappresentante l’eta delle J/psi</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>vettore di float che indica la rapidità delle J/psi</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="funzioni-per-l-accettanza-e-ricostruzione-delle-j-psi">
+<h2>Funzioni per l’accettanza e ricostruzione delle J/psi<a class="headerlink" href="#funzioni-per-l-accettanza-e-ricostruzione-delle-j-psi" title="Link to this heading">¶</a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414JpsiAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE">
+<span id="_CPPv314JpsiAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="_CPPv214JpsiAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE"></span><span id="JpsiAcceptance__ROOT::VecOps::RVec:float:CR.ROOT::VecOps::RVec:float:CR"></span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">JpsiAcceptance</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">pt</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414JpsiAcceptanceRKN4ROOT6VecOps4RVecIfEERKN4ROOT6VecOps4RVecIfEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Verifica se una J/psi è in accettanza.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pt</strong> – vettore di float rappresentante il pT delle J/psi</p></li>
+<li><p><strong>y</strong> – vettore di float rappresentante la rapidità delle J/psi</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>vettore di booleani che indica se ogni J/psi è in accettanza</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv414JpsiCandidatesN4ROOT6VecOps4RVecIfEEN4ROOT6VecOps4RVecIiEEN4ROOT6VecOps4RVecIiEE">
+<span id="_CPPv314JpsiCandidatesN4ROOT6VecOps4RVecIfEEN4ROOT6VecOps4RVecIiEEN4ROOT6VecOps4RVecIiEE"></span><span id="_CPPv214JpsiCandidatesN4ROOT6VecOps4RVecIfEEN4ROOT6VecOps4RVecIiEEN4ROOT6VecOps4RVecIiEE"></span><span id="JpsiCandidates__ROOT::VecOps::RVec:float:.ROOT::VecOps::RVec:i:.ROOT::VecOps::RVec:i:"></span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">JpsiCandidates</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Vtxprob</span></span>, <span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">firstindex</span></span>, <span class="n"><span class="pre">ROOT</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">VecOps</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">RVec</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">secondindex</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414JpsiCandidatesN4ROOT6VecOps4RVecIfEEN4ROOT6VecOps4RVecIiEEN4ROOT6VecOps4RVecIiEE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Seleziona i due migliori candidati J/psi in un evento con 4 muoni in base alla probabilità del vertex fit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parametri<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Vtxprob</strong> – vettore di float rappresentante la probabilità del vertex fit dei dimuon</p></li>
+<li><p><strong>firstindex</strong> – vettore di interi rappresentante l’indice del primo muone del dimuon</p></li>
+<li><p><strong>secondindex</strong> – vettore di interi rappresentante l’indice del secondo muone del dimuon</p></li>
+</ul>
+</dd>
+<dt class="field-even">Ritorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>vettore di interi che indica gli indici dei due candidati J/psi (0 e 1), -1 se non ci sono candidati</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">DiJpsito4mu</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Vai" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigazione</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="skimming.html">Script di skimming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filtering.html">Script di analisi dati</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Funzioni di Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#funzioni-per-i-trigger">Funzioni per i Trigger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funzioni-per-l-accettanza-dei-muoni">Funzioni per l’accettanza dei muoni</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funzioni-ausiliarie">Funzioni ausiliarie</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funzioni-per-l-accettanza-e-ricostruzione-delle-j-psi">Funzioni per l’accettanza e ricostruzione delle J/psi</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="filtering.html" title="capitolo precedente">Script di analisi dati</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Alessandro_Terranova.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/Utilities.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
