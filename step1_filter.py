@@ -1,7 +1,7 @@
 import os
 import ROOT
 
-ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
+# ROOT.EnableImplicitMT()  # Abilita il multithreading implicito in ROOT
 
 # Creo il percorso per la cartella contente i file
 path = os.path.dirname(__file__)
@@ -101,8 +101,30 @@ if __name__ == "__main__":
     # Creo il DataFrame dal file di input
     rdf = ROOT.RDataFrame("Events", f"{input_file}")
 
+#-----------------------------------------------------------#
 
-    # Applico i filtri
+    # Istogramma 2d del pt dei muoni con pt minore per evento vs la loro pseudo-rapidità prima della selezione
+    #filtro la pseudorapidità in valore assoluto per avere un istogramma più leggibile
+    rdf = rdf.Define("Muon_Index", "MuonPtOrdering(Muon_pt, Muon_trkId)")  # Creo un vettore con gli indici dei muoni
+    rdf = FilterCollection(rdf, "Muon", new_col="MuonSorted", indices="ROOT::VecOps::Argsort(Muon_Index)")  # Creo collezione dei muoni ordinati per pt crescente
+    rdf = FilterCollection(rdf, "MuonSorted", mask="MuonSorted_eta = abs(MuonSorted_eta)")  # Creo collezione dei muoni ordinati per pt crescente
+
+    # Muon_lowestpt[0]
+    rdf = rdf.Define("Muon0_lowestpt", "MuonSorted_pt[0]")
+    rdf = rdf.Define("Muon0_lowestpteta", "MuonSorted_eta[0]")
+    hist6 = rdf.Histo2D(("Muon0_lowestpt_vs_Muon0_lowestpteta", "Muon0_lowestpt_vs_Muon0_lowestpteta; Muon0_lowestpteta; Muon0_lowestpt", 30, 0, 3, 30, 0, 6), "Muon0_lowestpteta", "Muon0_lowestpt")  # Creo l'istogramma
+    hist6.GetXaxis().SetTitle("|#eta|")
+    hist6.GetYaxis().SetTitle("p_{T} [GeV/c]")
+    hist6.SetTitle("Distribuzione muoni con p_{T} piu' basso per evento")
+    hist6.SetStats(0)
+    c6 = ROOT.TCanvas("c6", "c6", 800, 600)
+    c6.SetRightMargin(0.15)
+    hist6.Draw("COLZ")
+    c6.SaveAs(os.path.join(path, "Muon0_lowestpt_vs_Muon0_lowestpteta.png"))
+
+#-----------------------------------------------------------#
+
+    ## Applico i filtri
 
     rdf = FilterCollection(rdf, "TrigObj", new_col="TrigMu", mask="abs(TrigObj_id) == 13") # filtro i TrigObj
 
@@ -150,6 +172,7 @@ if __name__ == "__main__":
             """,
     ).Filter("nDimu >= 2")
 
+
     rdf = rdf.Define("Dimu_CandidateIdx", "JpsiCandidates(Dimu_vertexProb, Dimu_t1muIdx, Dimu_t2muIdx)")  # Indici dei dimuon candidati J/psi
 
     #Sommo i candidati J/psi + 1 così i non candidati sono 0, e i candidati sono 1 o 2
@@ -174,6 +197,7 @@ if __name__ == "__main__":
     hist = rdf.Histo1D(("DistanceBetweenJpsi", "Distanza tra i candidati J/#psi", 100, 0, 1), "DistanceBetweenJpsi")  # Creo l'istogramma della distanza tra i due vertici dei J/psi
     hist.GetXaxis().SetTitle("#Delta r [cm]")
     hist.GetYaxis().SetTitle("Numero di eventi candidati")
+    hist.SetStats(0)
     c0 = ROOT.TCanvas("c0", "c0", 800, 600)
     hist.Draw()
     c0.SaveAs(os.path.join(path, "DistanceBetweenJpsi.png"))
@@ -183,39 +207,54 @@ if __name__ == "__main__":
     print(f"Numero di eventi dopo tutti i filtri: {rdf.Count().GetValue()}")  # Stampo il numero di eventi rimanenti dopo tutti i filtri
 
     #---------------------------#
-    '''
+
     # Plot: creo gli istogrammi delle variabili di interesse
     # Jpsi_mass[0]
     rdf = rdf.Define("Jpsi0_mass", "Jpsi_mass[0]")
-    hist1 = rdf.Histo1D(("Jpsi_mass_1", "Jpsi_mass_1", 100, 2.8, 3.35), "Jpsi0_mass")  # Creo l'istogramma della massa del primo J/psi
+    hist1 = rdf.Histo1D(("Jpsi_mass_1", "Massa J/#psi 1", 100, 2.8, 3.35), "Jpsi0_mass")  # Creo l'istogramma della massa del primo J/psi
+    hist1.GetXaxis().SetTitle("M_{J/#psi} [GeV/c^{2}]")
+    hist1.GetYaxis().SetTitle("Numero di candidati eventi ")
     c1 = ROOT.TCanvas("c1", "c1", 800, 600)
     hist1.Draw()
     c1.SaveAs(os.path.join(path, "Jpsi_mass_1.png"))
 
     # Jpsi_mass[1]
     rdf = rdf.Define("Jpsi1_mass", "Jpsi_mass[1]")
-    hist2 = rdf.Histo1D(("Jpsi_mass_2", "Jpsi_mass_2", 100, 2.8, 3.35), "Jpsi1_mass")  # Creo l'istogramma della massa del secondo J/psi
+    hist2 = rdf.Histo1D(("Jpsi_mass_2", "Massa J/#psi 2", 100, 2.8, 3.35), "Jpsi1_mass")  # Creo l'istogramma della massa del secondo J/psi
+    hist2.GetXaxis().SetTitle("M_{J/#psi} [GeV/c^{2}]")
+    hist2.GetYaxis().SetTitle("Numero di candidati eventi ")
     c2 = ROOT.TCanvas("c2", "c2", 800, 600)
     hist2.Draw()
     c2.SaveAs(os.path.join(path, "Jpsi_mass_2.png"))
 
-    # Jpsi_mass[0] vs Jpsi_mass[1]
-    hist3 = rdf.Histo2D(("Jpsi_mass_1_vs_Jpsi_mass_2", "Jpsi_mass_1_vs_Jpsi_mass_2; Jpsi0_mass; Jpsi1_mass", 100, 2.8, 3.35, 100, 2.8, 3.35), "Jpsi0_mass", "Jpsi1_mass")  # Creo l'istogramma 2D della massa del primo J/psi vs la massa del secondo J/psi
-    c3 = ROOT.TCanvas("c3", "c3", 800, 600)
-    hist3.Draw("COLZ")
-    c3.SaveAs(os.path.join(path, "Jpsi_mass_1_vs_Jpsi_mass_2.png"))
-
     # Jpsi_dl
-    hist4 = rdf.Histo1D(("Jpsi_dl", "Jpsi_dl", 100, -0.05, 0.1), "Jpsi_dl")  # Creo l'istogramma della distanza di volo del primo J/psi
+    hist4 = rdf.Histo1D(("Jpsi_dl", "Lunghezza di decadimento Jpsi", 100, -0.05, 0.1), "Jpsi_dl")  # Creo l'istogramma della distanza di volo del primo J/psi
+    hist4.GetXaxis().SetTitle("L [cm]")
+    hist4.GetYaxis().SetTitle("Numero di candidati eventi ")
     c4 = ROOT.TCanvas("c4", "c4", 800, 600)
     hist4.Draw()
     c4.SaveAs(os.path.join(path, "Jpsi_dl.png"))
 
+    # Jpsi_mass[0] vs Jpsi_mass[1]
+    hist3 = rdf.Histo2D(("Jpsi_mass_1_vs_Jpsi_mass_2", "Jpsi_mass_1_vs_Jpsi_mass_2; Jpsi0_mass; Jpsi1_mass", 100, 2.8, 3.35, 100, 2.8, 3.35), "Jpsi0_mass", "Jpsi1_mass")  # Creo l'istogramma 2D della massa del primo J/psi vs la massa del secondo J/psi
+    hist3.SetStats(0)
+    hist3.GetXaxis().SetTitle("M_{J/#psi 1} [GeV/c^{2}]")
+    hist3.GetYaxis().SetTitle("M_{J/#psi 2} [GeV/c^{2}]")
+    hist3.SetTitle("Distribuzione delle masse delle due J/#psi per cardidato evento")
+    c3 = ROOT.TCanvas("c3", "c3", 800, 600)
+    hist3.Draw("COLZ")
+    c3.SaveAs(os.path.join(path, "Jpsi_mass_1_vs_Jpsi_mass_2.png"))
+
     # Jpsi_pt vs Jpsi_rapidity
-    hist5 = rdf.Histo2D(("Jpsi_pt_vs_Jpsi_rapidity", "Jpsi_pt_vs_Jpsi_rapidity; Jpsi_rapidity; Jpsi_pt", 100, -2.4, 2.4, 100, 0, 30), "Jpsi_rapidity", "Jpsi_pt")  # Creo l'istogramma 2D della rapidità del primo J/psi vs il pt del primo J/psi
+    #filtro la rapidità in valore assoluto per avere un istogramma più leggibile
+    rdf = FilterCollection(rdf, "Jpsi", mask="Jpsi_rapidity = abs(Jpsi_rapidity)")  # Creo collezione dei dimuon candidati J/psi")
+    hist5 = rdf.Histo2D(("Jpsi_pt_vs_Jpsi_rapidity", "Jpsi_pt_vs_Jpsi_rapidity; Jpsi_rapidity; Jpsi_pt", 30, 0, 2.2, 30, 4.5, 10), "Jpsi_rapidity", "Jpsi_pt")  # Creo l'istogramma 2D della rapidità del primo J/psi vs il pt del primo J/psi
+    hist5.SetStats(0)
+    hist5.GetXaxis().SetTitle("J/#psi |y|")
+    hist5.GetYaxis().SetTitle("J/#psi p_{T} [GeV/c]")
+    hist5.SetTitle("Distribuzione p_{T} vs |y| delle J/#psi")
     c5 = ROOT.TCanvas("c5", "c5", 800, 600)
     hist5.Draw("COLZ")
     c5.SaveAs(os.path.join(path, "Jpsi_pt_vs_Jpsi_rapidity.png"))
-    '''
 
    

@@ -139,4 +139,19 @@ ROOT::VecOps::RVec<int> JpsiCandidates(ROOT::VecOps::RVec<float> Vtxprob, ROOT::
   return CandidateIndexs;
 }
 
+
+// Funzione che resistuisce un Rvecintger con gli indici dei muoni ordinati per pt crescente
+// La funzione prende in input il vettore dei pt dei muoni e il vettore degli indici dei muoni
+// Restituisce un Rvecinteger con gli indici dei muoni ordinati per pt crescente
+ROOT::VecOps::RVec<int> MuonPtOrdering(const ROOT::VecOps::RVec<float> &muon_pt, const ROOT::VecOps::RVec<int> &muon_index) {
+  int nMuons = muon_pt.size();
+  ROOT::VecOps::RVec<int> MuonIndexSorted(nMuons, 0); // Inizializzo il vettore degli indici dei muoni ordinati a 0
+  ROOT::VecOps::RVec<int> SortedIndexs = ROOT::VecOps::Argsort(muon_pt); // Ordino gli indici in modo crescente in base al pt
+  ROOT::VecOps::RVec<int> IndexSortedMuon = ROOT::VecOps::Take(muon_index, SortedIndexs); // Creo un vettore con gli indici dei muoni ordinati per pt crescente
+  for(int i = 0; i < MuonIndexSorted.size(); ++i) {
+    MuonIndexSorted[i] = muon_index[SortedIndexs[i]];
+  }
+  return MuonIndexSorted;
+}
+
 #endif // UTILS_CPP
